@@ -1,4 +1,4 @@
-from setuptools import find_packages, setup
+from setuptools import setup
 
 
 repo_url = 'https://github.com/chillaranand/httpie-token-auth'
@@ -11,7 +11,7 @@ with open('README.md') as fh:
 
 setup(
     name='httpie-token-auth',
-    version='0.1.6',
+    version='0.1.7',
     description='token Auth plugin for HTTPie.',
     long_description=long_description,
 
@@ -22,7 +22,8 @@ setup(
 
     url=repo_url,
     download_url=repo_url,
-    packages=find_packages(),
+
+    py_modules=['httpie_token_auth'],
 
     entry_points={
         'httpie.plugins.auth.v1': [
