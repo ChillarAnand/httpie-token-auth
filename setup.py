@@ -11,7 +11,7 @@ with open('README.md') as fh:
 
 setup(
     name='httpie-token-auth',
-    version='0.1.7',
+    version='0.1.8',
     description='token Auth plugin for HTTPie.',
     long_description=long_description,
 
