@@ -1,12 +1,12 @@
 """
 Token Auth plugin for HTTPie.
-
 """
+
 import os
+import sys
 from urllib.parse import urlsplit
 
 import requests
-
 from httpie.plugins import AuthPlugin, builtin
 
 
@@ -19,16 +19,21 @@ class TokenAuth(builtin.HTTPBasicAuth):
         self.password = password
 
     def __call__(self, r):
-        host = "{0.scheme}://{0.netloc}/".format(urlsplit(r.url))
+        host = "{0.scheme}://{0.netloc}".format(urlsplit(r.url))
         login_url = host + auth_endpoint
+        print(login_url)
         data = {
             'username': self.username,
             'password': self.password,
         }
         response = requests.post(login_url, data=data)
         json = response.json()
-        user = str(json['user'])
-        token = json['token']
+        try:
+            user = str(json['user'])
+            token = json['token']
+        except KeyError:
+            print('Invalid credentials')
+            sys.exit()
         r.headers['Authorization'] = type(self).make_header(user, token).encode('latin1')
         return r
 
